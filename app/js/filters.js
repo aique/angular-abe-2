@@ -1,3 +1,26 @@
-/**
- * Created by aique on 23/07/15.
- */
+angular.module('7MinutesWorkout').filter('secondsToTime', function()
+{
+    return function(input)
+    {
+        var sec = parseInt(input);
+
+        if(isNaN(sec))
+        {
+            return '00:00:00';
+        }
+
+        var hours = Math.floor(sec / 3600);
+        var minutes = Math.floor((sec - (hours * 3600)) / 60);
+        var seconds = sec - (hours * 3600) - (minutes * 60);
+
+        return ('0' + hours).substr(-2) + ':' + ('0' + minutes).substr(-2) + ':' + ('0' + seconds).substr(-2);
+    };
+});
+
+angular.module('7MinutesWorkout').filter('myLineBreakFilter', function()
+{
+    return function(input)
+    {
+        return input.replace(/\./g, '.<br/>');
+    };
+});

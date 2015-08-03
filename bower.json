@@ -1,0 +1,12 @@
+{
+  "name": "angular-abe-2",
+  "version": "0.0.0",
+  "homepage": "https://github.com/aique/angular-abe-2",
+  "license": "MIT",
+
+  "dependencies":
+  {
+    "angular-route": "v1.4.3",
+    "angular-sanitize": "v1.4.3"
+  }
+}
