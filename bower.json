@@ -7,6 +7,7 @@
   "dependencies":
   {
     "angular-route": "v1.4.3",
-    "angular-sanitize": "v1.4.3"
+    "angular-sanitize": "v1.4.3",
+    "angular-media-player": "v0.5.8"
   }
 }

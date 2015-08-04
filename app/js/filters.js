@@ -21,6 +21,9 @@ angular.module('7MinutesWorkout').filter('myLineBreakFilter', function()
 {
     return function(input)
     {
-        return input.replace(/\./g, '.<br/>');
+        if(input !== undefined)
+        {
+            return input.replace(/\./g, '.<br/>');
+        }
     };
 });

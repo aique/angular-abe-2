@@ -2,9 +2,7 @@
 
     <!-- ejemplo de inclusión de una vista mediante una ruta remota -->
 
-    <div id="description-panel" class="col-sm-2" ng-include="'app/partials/description-panel.html'">
-
-    </div>
+    <div id="description-panel" class="col-sm-2" ng-include="'app/partials/description-panel.html'"></div>
 
     <div id="exercise-pane" class="col-sm-6">
 
@@ -25,7 +23,7 @@
 
                     <h3 class="col-sm-6 text-left">Tiempo restante: <strong>{{currentExercise.duration - currentExerciseDuration}}</strong></h3>
 
-                    <h3 class="col-sm-6 text-right" ng-if="currentExercise.details.name == 'rest'">Siguiente: <strong>{{workoutPlan.exercises[0].details.title}}</strong></h3>
+                    <h3 class="col-sm-6 text-right" ng-if="currentExercise.details.name == 'rest'">Siguiente: <strong>{{workoutPlan.exercises[currentExerciseIndex + 1].details.title}}</strong></h3>
 
                 </div>
 
@@ -33,11 +31,13 @@
 
         </div>
 
+        <div ng-include="'app/partials/workout-audio.html'">
+
     </div>
 
     <!-- ejemplo de inclusión de una vista mediante un script embebido -->
 
-    <div id="vide-panel" class="col-sm-4" ng-include="'video-panel.html'">
+    <div id="video-panel" class="col-sm-4" ng-include="'video-panel.html'">
 
     </div>
 

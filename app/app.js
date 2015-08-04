@@ -8,7 +8,7 @@
 
 // Se importa el módulo ngRoute para el enlazado de las vistas parciales
 
-angular.module('7MinutesWorkout', ['ngRoute', 'ngSanitize']).
+angular.module('7MinutesWorkout', ['ngRoute', 'ngSanitize', 'mediaPlayer']).
 config(function($routeProvider, $sceDelegateProvider)
 {
     // Declaración de las rutas del módulo
