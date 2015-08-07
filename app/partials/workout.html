@@ -1,10 +1,10 @@
-<div class="row">
+<div class="row" tabindex="1" ng-keypress="onKeyPressed($event)">
 
     <!-- ejemplo de inclusión de una vista mediante una ruta remota -->
 
-    <div id="description-panel" class="col-sm-2" ng-include="'app/partials/description-panel.html'"></div>
+    <div id="description-panel" class="col-sm-2" ng-include="'partials/description-panel.html'"></div>
 
-    <div id="exercise-pane" class="col-sm-6">
+    <div id="exercise-pane" class="col-sm-6" ng-mouseenter="showPauseOverlay=true" ng-mouseleave="showPauseOverlay=false">
 
         <div class="row workout-content">
 
@@ -31,7 +31,13 @@
 
         </div>
 
-        <div ng-include="'app/partials/workout-audio.html'">
+        <div ng-include="'partials/workout-audio.html'"></div>
+
+        <div id="pause-overlay" ng-click="pauseResumeToggle()" ng-show="showPauseOverlay">
+
+            <span class="glyphicon glyphicon-pause pause absolute-center" ng-class="{'glyphicon-pause' : !workoutPaused, 'glyphicon-play' : workoutPaused}"></span>
+
+        </div>
 
     </div>
 

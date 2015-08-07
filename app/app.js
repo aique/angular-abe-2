@@ -15,18 +15,18 @@ config(function($routeProvider, $sceDelegateProvider)
 
     $routeProvider.when('/start',
     {
-        templateUrl: 'app/partials/start.html'
+        templateUrl: 'partials/start.html'
     });
 
     $routeProvider.when('/workout',
     {
-        templateUrl: 'app/partials/workout.html',
+        templateUrl: 'partials/workout.html',
         controller: 'WorkoutController'
     });
 
     $routeProvider.when('/finish',
     {
-        templateUrl: 'app/partials/finish.html'
+        templateUrl: 'partials/finish.html'
     });
 
     $routeProvider.otherwise(
