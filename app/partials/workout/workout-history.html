@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h3 class="modal-title">Historial de rutinas</h3>
+</div>
+
+<div class="modal-body">
+
+    <div class="row">
+        <label>Filtrar rutina por: </label>
+        <div class="btn-group">
+            <label><input type="radio" name="searchFilter" ng-model="search.completed" value="">Todos </label>
+            <label><input type="radio" name="searchFilter" ng-model="search.completed" value="true">Completas </label>
+            <label><input type="radio" name="searchFilter" ng-model="search.completed" value="false">Incompletas </label>
+        </div>
+    </div>
+
+    <div class="row table-responsive">
+
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Inicio</th>
+                    <th>Fin</th>
+                    <th>Último ejercicio</th>
+                    <th>Ejercicios completados</th>
+                    <th>Rutina completada</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr ng-repeat="historyItem in history | filter:search | orderBy:'-startedOn'">
+                    <td>{{$index+1}}</td>
+                    <td>{{historyItem.startedOn | date:'short'}}</td>
+                    <td>{{historyItem.endedOn | date:'short'}}</td>
+                    <td>{{historyItem.lastExercise}}</td>
+                    <td>{{historyItem.exercisesDone}}</td>
+                    <td>{{historyItem.completed ? "Yes" : "No"}}</td>
+                </tr>
+
+                <tr ng-if="history.length==0" class="warning">
+                    <td colspan="6">No se han encontrado rutinas registradas.</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+</div>

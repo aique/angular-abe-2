@@ -6,20 +6,36 @@
     <meta charset="UTF-8">
     <title>7 Minutes Workout</title>
 
+    <!-- bootstrap -->
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- fonts -->
     <link href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet" type="text/css">
+    <!-- animate css -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css" rel="stylesheet" type="text/css">
+    <!-- estilos de la aplicación -->
     <link rel="stylesheet" href="css/app.css" />
 
 </head>
 
-<body ng-app="7MinutesWorkout">
+<body ng-app="app" ng-controller="RootController">
 
     <div class="navbar navbar-default navbar-fixed-top top-navbar">
+
         <div class="container app-container">
+
             <div class="navbar-header">
-                <h1>7 Minutes Workout</h1>
+
+                <!-- <h1>7 Minute Workout</h1> -->
+                <div class="navbar-brand">7 Minute Workout</div>
+
             </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a ng-click="showWorkoutHistory()" title="Historial de rutinas">Historial</a></li>
+            </ul>
+
         </div>
+
     </div>
 
     <div class="container body-content app-container">
@@ -29,20 +45,29 @@
     </div>
 
     <!-- framework -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="vendor/angular.js"></script>
     <script src="vendor/angular-route.min.js"></script>
     <script src="vendor/angular-sanitize.min.js"></script>
+    <script src="vendor/angular-animate.min.js"></script>
     <script src="vendor/angular-media-player.min.js"></script>
+    <script src="vendor/angular-local-storage.min.js"></script>
+    <!-- bootstrap ui -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
     <!-- fichero base -->
     <script src="app.js"></script>
     <!-- modelo -->
     <script src="js/model/exercise.js"></script>
     <script src="js/model/workout.js"></script>
     <!-- controlador -->
-    <script src="js/controllers/workout.js"></script>
-    <script src="js/controllers/workoutAudio.js"></script>
+    <script src="js/controllers/root.js"></script>
+    <script src="js/controllers/workout/workout.js"></script>
+    <script src="js/controllers/workout/workoutAudio.js"></script>
+    <script src="js/controllers/workout/workoutVideo.js"></script>
+    <script src="js/controllers/workout/workoutHistory.js"></script>
     <!-- filtros -->
     <script src="js/filters.js"></script>
+    <!-- servicios -->
+    <script src="js/services.js"></script>
 
 </body>
 

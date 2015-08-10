@@ -8,7 +8,7 @@
 
 // Se importa el módulo ngRoute para el enlazado de las vistas parciales
 
-angular.module('7MinutesWorkout', ['ngRoute', 'ngSanitize', 'mediaPlayer']).
+angular.module('app', ['7MinutesWorkout', 'ngRoute']).
 config(function($routeProvider, $sceDelegateProvider)
 {
     // Declaración de las rutas del módulo
@@ -20,7 +20,7 @@ config(function($routeProvider, $sceDelegateProvider)
 
     $routeProvider.when('/workout',
     {
-        templateUrl: 'partials/workout.html',
+        templateUrl: 'partials/workout/workout.html',
         controller: 'WorkoutController'
     });
 
@@ -42,3 +42,5 @@ config(function($routeProvider, $sceDelegateProvider)
         'http://*.youtube.com/**'
     ]);
 });
+
+angular.module('7MinutesWorkout', ['ngSanitize', 'ngAnimate', 'mediaPlayer', 'ui.bootstrap', 'LocalStorageModule']);

@@ -8,6 +8,8 @@
   {
     "angular-route": "v1.4.3",
     "angular-sanitize": "v1.4.3",
-    "angular-media-player": "v0.5.8"
+    "angular-animate": "v1.4.3",
+    "angular-media-player": "v0.5.8",
+    "angular-local-storage": "v0.1.4"
   }
 }
