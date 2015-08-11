@@ -122,7 +122,7 @@ angular.module('7MinutesWorkout').controller('WorkoutController', ["$scope", "$i
             var promise = $interval(function()
             {
                 ++$scope.currentExerciseDuration;
-                --$scope.workoutTimeRemaining;
+                --$scope.workoutDuration;
             }, 1000, $scope.currentExercise.duration - $scope.currentExerciseDuration); // la duración del intervalo será el tiempo restante del ejercicio
 
             promise.then(function()
