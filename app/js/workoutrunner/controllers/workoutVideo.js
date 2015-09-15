@@ -1,4 +1,4 @@
-angular.module('7MinutesWorkout').controller('WorkoutVideoController', ['$scope', '$modal',
+angular.module('workoutrunner').controller('WorkoutVideoController', ['$scope', '$modal',
     function ($scope, $modal)
     {
         $scope.playVideo = function(videoId)

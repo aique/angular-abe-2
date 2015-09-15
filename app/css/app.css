@@ -5,19 +5,12 @@ html{
 }
 
 body {
-    padding-top: 70px;
-    padding-bottom: 20px;
+    padding: 108px 15px 20px 15px;
     min-height: 100%;
     font-size: 13px;
     font-family: 'Roboto Slab';
     font-style: normal;
     font-weight: 400;
-}
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -58,7 +51,13 @@ input[type="checkbox"].input-validation-error {
     background-color: #4eaded;
     border-color: #4eaded;
 }
-
+.navbar-default .second-top-nav{
+    background-color: #0088dc !important;
+    height:43px;
+}
+.navbar-default .second-top-nav a {
+    color: white !important;
+}
 .navbar-default.top-navbar h1 {
     color: white;
     margin-top: 15px;
@@ -66,14 +65,25 @@ input[type="checkbox"].input-validation-error {
 }
 /*styles for top nav bar - end*/
 
-/*styles for container - start*/
-.container.app-container{
-    width:100%;
-    max-width:100%;
+/*styles for left nav bar - start*/
+.left-nav-bar {
+    background-color: #1ba2db;
+    min-height: 100%;
+    position: fixed;
+    margin-top: -14px;
+    margin-left:-15px;
 }
-.workout-display-div{
+.left-nav-bar a{
+    color:white;
     text-align:center;
-    padding:40px;
+    width:100%;
+}
+/*styles for left nav bar - end*/
+
+/*styles for container - start*/
+.workout-display-div {
+    text-align: center;
+    padding: 40px;
 }
 .workout-display-div .img-responsive{
     margin: 25px auto;
@@ -90,19 +100,19 @@ input[type="checkbox"].input-validation-error {
 .text-center{
     color:#4eaded;
 }
-#start{
+.action{
     text-align:center;
     margin-top:25px;
 }
-#start a {
+.action a {
     text-decoration: none;
-    font-size: 67px;
+    font-size: 50px;
     color:#4eaded;
 }
-#start a:hover{
-    color:#4eaded;
+.action a:hover{
+    color:#005E9E;
 }
-#start a .glyphicon {
+.action a .glyphicon {
     top:8px;
 }
 /*Styles for start page - end*/
@@ -141,63 +151,163 @@ input[type="checkbox"].input-validation-error {
     position: absolute;
     top: 0; left: 0; bottom: 0; right: 0;
 }
+
+#play-video-overlay {
+    position:absolute;
+    top:0px;
+    width:100%;
+    height:100%;
+    opacity:0;
+    z-index:10;
+
+}
+#play-video-overlay:hover {
+    opacity:.6;
+}
+#play-video-overlay .video {
+    font-size:80pt;
+    width:100px;
+    height:100px;
+    color:#4eaded;
+}
 /*Styles for workout page - end*/
 
-/* animaciones para las vistas */
-
-div[ng-view]
-{
+/*Animation effects workout*/
+div[ng-view] {
     position: absolute;
     width: 100%;
     height: 100%;
 }
-
 div[ng-view].ng-enter,
-div[ng-view].ng-leave
-{
+div[ng-view].ng-leave {
     -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
     transition: all 1s ease;
 }
-
-div[ng-view].ng-enter
-{
-    left: 100%; /* css del estado inicial al mostrar la vista */
+div[ng-view].ng-enter {
+    left: 100%;     /*initial css for view transition in*/
 }
-
-div[ng-view].ng-enter-active
-{
-    left: 0; /* css del estilo final al mostrar la vista */
+div[ng-view].ng-leave {
+    left: 0%;        /*initial css for view transition out*/
 }
-
-div[ng-view].ng-leave
-{
-    left: 0; /* css del estado inicial al ocultar la vista */
+div[ng-view].ng-enter-active {
+    left: 0%;        /*final css for view transition in*/
 }
-
-div[ng-view].ng-leave-active
-{
-    left: -100%; /* css del estilo final al ocultar la vista */
+div[ng-view].ng-leave-active {
+    left: -100%;    /*final css for view transition out*/
 }
-
-/* animaciones para el panel de vídeo */
-
-/* las funciones bounceIn y bounceOut están definidas en la librería animate.css de daneden */
 
 .video-image.ng-enter,
-.video-image.ng-move
-{
+.video-image.ng-move {
     -webkit-animation: bounceIn 1s;
     -moz-animation: bounceIn 1s;
     -ms-animation: bounceIn 1s;
     animation: bounceIn 1s;
 }
-
-.video-image.ng-leave
-{
+.video-image.ng-leave {
     -webkit-animation: bounceOut 1s;
     -moz-animation: bounceOut 1s;
     -ms-animation: bounceOut 1s;
     animation: bounceOut 1s;
 }
+
+
+
+/*Animation effects Workout- end*/
+
+/*Workout Builder Styles*/
+#left-nav-exercises button {
+    margin-bottom:4px;
+}
+#left-nav-exercises button .glyphicon {
+    margin-left:6px;
+}
+.exercise-item.ng-enter,
+.exercise-item.ng-move {
+    -webkit-animation: zoomIn 0.5s;
+    -moz-animation: zoomIn 0.5s;
+    -ms-animation: zoomIn 0.5s;
+    animation: zoomIn 0.5s;
+}
+.exercise-item.ng-leave {
+    -webkit-animation: fadeOut 0.25s;
+    -moz-animation: fadeOut 0.25s;
+    -ms-animation: fadeOut 0.25s;
+    animation: fadeOut 0.25s;
+}
+/*Workout Builder Styles - end*/
+
+
+/*styles for tile - start*/
+.exercise.tile {
+    width:320px;
+    height:226px;
+    color:white;
+    margin-bottom:10px;
+    background:#61b9ff;
+
+}
+
+.exercise.tile .title {
+    width:inherit;
+    background:#9d4a9c;
+    font-size:14pt;
+    padding:5px;
+}
+.exercise.tile .index{
+    width:40px;
+    float:left;
+    font-size:20pt;
+    text-align:center;
+    padding-top:10px;
+}
+.exercise.tile .order{
+    width:53px;
+    float:right;
+}
+.exercise.tile .main {
+    width:225px;
+    float:left;
+    padding:4px;
+}
+.exercise.tile img{
+    width:100%;
+    height:120px;
+}
+
+.workout.tile {
+    width: 300px;
+    height: 80px;
+    background: #5bc0de;
+    color: white;
+    padding:10px;
+    margin-bottom:10px;
+}
+.workout.tile:hover{
+    background:#1D89CF;
+}
+
+.workout .title{
+    font-size: 20pt;
+    text-align: center;
+}
+.workout .stats{
+    font-size: 12pt;
+    padding:0 10px 0 10px;
+}
+
+.exercise-tile {
+    width: 300px;
+    height: 50px;
+    background: #5bc0de;
+    color: white;
+    padding:5px;
+    margin-bottom:10px;
+    font-size: 18pt;
+    text-align: center;
+}
+.exercise-tile:hover {
+    background:#1D89CF;
+}
+/*styles for tile- end*/

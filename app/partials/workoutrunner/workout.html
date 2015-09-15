@@ -2,7 +2,7 @@
 
     <!-- ejemplo de inclusión de una vista mediante una ruta remota -->
 
-    <div id="description-panel" class="col-sm-2" ng-include="'partials/workout/description-panel.html'"></div>
+    <div id="description-panel" class="col-sm-2" ng-include="'partials/WorkoutRunner/workout-description-panel.html'"></div>
 
     <div id="exercise-pane" class="col-sm-6" ng-mouseenter="showPauseOverlay=true" ng-mouseleave="showPauseOverlay=false">
 
@@ -31,7 +31,7 @@
 
         </div>
 
-        <div ng-include="'partials/workout/workout-audio.html'"></div>
+        <div ng-include="'partials/WorkoutRunner/workout-audio.html'"></div>
 
         <div id="pause-overlay" ng-click="pauseResumeToggle()" ng-show="showPauseOverlay">
 
@@ -45,9 +45,9 @@
 
     <!--
 
-    <div id="video-panel" class="col-sm-4" ng-include="'partials/workout/video-panel.html'"></div>
+    <div id="video-panel" class="col-sm-4" ng-include="'partials/workout-video-panel.html'"></div>
 
-    <script type="text/ng-template" id="video-panel.html">
+    <script type="text/ng-template" id="workout-video-panel.html">
 
         <div class="panel panel-default">
 
@@ -73,6 +73,6 @@
 
     -->
 
-    <div id="video-panel" class="col-sm-4" ng-include="'partials/workout/video-panel.html'"></div>
+    <div id="video-panel" class="col-sm-4" ng-include="'partials/WorkoutRunner/workout-video-panel.html'"></div>
 
 </div>

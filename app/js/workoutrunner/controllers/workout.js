@@ -1,7 +1,7 @@
 
 // Controlador principal
 
-angular.module('7MinutesWorkout').controller('WorkoutController', ["$scope", "$interval", "$location", "workoutHistoryTracker",
+angular.module('workoutrunner').controller('WorkoutController', ["$scope", "$interval", "$location", "workoutHistoryTracker",
     function($scope, $interval, $location, workoutHistoryTracker)
     {
         var restExercise;
@@ -131,7 +131,7 @@ angular.module('7MinutesWorkout').controller('WorkoutController', ["$scope", "$i
 
                 if($scope.currentExercise.details.name != 'rest')
                 {
-                    $scope.$emit('event:workout:exerciseStarted', $scope.currentExercise.details);
+                    $scope.$emit('event:workoutrunner:exerciseStarted', $scope.currentExercise.details);
                 }
 
                 var next = getNextExercise($scope.currentExercise);

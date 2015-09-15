@@ -1,4 +1,4 @@
-angular.module('7MinutesWorkout').controller('WorkoutAudioController', ['$scope', '$timeout',
+angular.module('workoutrunner').controller('WorkoutAudioController', ['$scope', '$timeout',
     function($scope, $timeout)
     {
         $scope.exercisesAudio = [];

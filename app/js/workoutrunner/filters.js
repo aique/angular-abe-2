@@ -1,4 +1,4 @@
-angular.module('7MinutesWorkout').filter('secondsToTime', function()
+angular.module('workoutrunner').filter('secondsToTime', function()
 {
     return function(input)
     {
@@ -17,7 +17,7 @@ angular.module('7MinutesWorkout').filter('secondsToTime', function()
     };
 });
 
-angular.module('7MinutesWorkout').filter('myLineBreakFilter', function()
+angular.module('workoutrunner').filter('myLineBreakFilter', function()
 {
     return function(input)
     {

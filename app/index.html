@@ -21,11 +21,10 @@
 
     <div class="navbar navbar-default navbar-fixed-top top-navbar">
 
-        <div class="container app-container">
+        <div class="container-fluid">
 
             <div class="navbar-header">
 
-                <!-- <h1>7 Minute Workout</h1> -->
                 <div class="navbar-brand">7 Minute Workout</div>
 
             </div>
@@ -36,19 +35,36 @@
 
         </div>
 
+        <div id="top-nav-container" class="second-top-nav">
+
+            <div id="top-nav" ng-include="currentRoute.topNav"></div>
+
+        </div>
+
     </div>
 
-    <div class="container body-content app-container">
+    <div class="container-fluid">
 
-        <div ng-view></div>
+        <div id="content-container" class="row">
+
+            <div class="col-sm-2 left-nav-bar" ng-if="currentRoute.leftNav">
+                <div id="left-nav" ng-include="currentRoute.leftNav"></div>
+            </div>
+
+            <div class="col-sm-10 col-sm-offset-2">
+                <div id="page-content" ng-view></div>
+            </div>
+
+        </div>
 
     </div>
 
     <!-- framework -->
-    <script src="vendor/angular.js"></script>
+    <script src="vendor/angular.min.js"></script>
     <script src="vendor/angular-route.min.js"></script>
     <script src="vendor/angular-sanitize.min.js"></script>
     <script src="vendor/angular-animate.min.js"></script>
+    <script src="vendor/angular-messages.min.js"></script>
     <script src="vendor/angular-media-player.min.js"></script>
     <script src="vendor/angular-local-storage.min.js"></script>
     <!-- bootstrap ui -->
@@ -58,16 +74,22 @@
     <!-- modelo -->
     <script src="js/model/exercise.js"></script>
     <script src="js/model/workout.js"></script>
-    <!-- controlador -->
+    <!-- controladores -->
     <script src="js/controllers/root.js"></script>
-    <script src="js/controllers/workout/workout.js"></script>
-    <script src="js/controllers/workout/workoutAudio.js"></script>
-    <script src="js/controllers/workout/workoutVideo.js"></script>
-    <script src="js/controllers/workout/workoutHistory.js"></script>
+    <script src="js/workoutrunner/controllers/workout.js"></script>
+    <script src="js/workoutrunner/controllers/workoutAudio.js"></script>
+    <script src="js/workoutrunner/controllers/workoutVideo.js"></script>
+    <script src="js/workoutrunner/controllers/workoutHistory.js"></script>
+    <script src="js/workoutbuilder/controllers/workout.js"></script>
+    <script src="js/workoutbuilder/controllers/exercise.js"></script>
     <!-- filtros -->
-    <script src="js/filters.js"></script>
+    <script src="js/workoutrunner/filters.js"></script>
     <!-- servicios -->
     <script src="js/services.js"></script>
+    <script src="js/workoutrunner/services.js"></script>
+    <script src="js/workoutbuilder/services.js"></script>
+    <!-- directivas -->
+    <script src="js/directives.js"></script>
 
 </body>
 
