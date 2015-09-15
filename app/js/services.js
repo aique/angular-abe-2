@@ -10,6 +10,48 @@ angular.module('app')
             return exercises;
         };
 
+        // Busca en la colección de ejercicios aquel que coincida con el nombre recibido como parámetro y devuelve una copia del mismo
+
+        service.getExercise = function(name)
+        {
+            var result = null;
+
+            angular.forEach(service.getExercises(), function(exercise)
+            {
+                if(exercise.name === name)
+                {
+                    result = angular.copy(exercise);
+                }
+            });
+
+            return result;
+        };
+
+        service.addExercise = function(exercise)
+        {
+            if(exercise.name)
+            {
+                exercises.push(exercise);
+
+                return exercise;
+            }
+        };
+
+        service.updateExercise = function(exercise)
+        {
+            for(var i = 0 ; i < exercises.length ; i++)
+            {
+                if(exercises[i].name === exercise.name)
+                {
+                    exercises[i] = exercise;
+
+                    break;
+                }
+            }
+
+            return exercise;
+        };
+
         service.getWorkouts = function()
         {
             return workouts;
@@ -32,6 +74,16 @@ angular.module('app')
             return result;
         };
 
+        service.addWorkout = function(workout)
+        {
+            if(workout.name)
+            {
+                workouts.push(workout);
+
+                return workout;
+            }
+        };
+
         service.updateWorkout = function(workout)
         {
             for(var i = 0 ; i < workouts.length ; i++)
@@ -45,16 +97,6 @@ angular.module('app')
             }
 
             return workout;
-        };
-
-        service.addWorkout = function(workout)
-        {
-            if(workout.name)
-            {
-                workouts.push(workout);
-
-                return workout;
-            }
         };
 
         var setupInitialExercises = function ()

@@ -96,8 +96,42 @@ config(function($routeProvider, $sceDelegateProvider)
         }
     });
 
-    $routeProvider.when('/builder/exercises/new', { templateUrl: 'partials/workoutbuilder/exercise.html' });
-    $routeProvider.when('/builder/exercises/:id', { templateUrl: 'partials/workoutbuilder/exercise.html' });
+    $routeProvider.when('/builder/exercises/new',
+    {
+        templateUrl: 'partials/workoutbuilder/exercise.html',
+        topNav: 'partials/workoutbuilder/top-nav.html', // menú superior de la vista
+        controller: 'ExerciseDetailController',
+        resolve:
+        {
+            selectedExercise: ['ExerciseBuilderService', function(ExerciseBuilderService)
+            {
+                return ExerciseBuilderService.startBuilding();
+            }]
+        }
+    });
+
+    $routeProvider.when('/builder/exercises/:id',
+    {
+        templateUrl: 'partials/workoutbuilder/exercise.html',
+        topNav: 'partials/workoutbuilder/top-nav.html', // menú superior de la vista
+        controller: 'ExerciseDetailController',
+        resolve:
+        {
+            selectedExercise: ['ExerciseBuilderService', '$route', '$location', function (ExerciseBuilderService, $route, $location)
+            {
+                // Si el ejercicio no se encuentra se redirige al listado de ejercicios desde este punto
+
+                var exercise = ExerciseBuilderService.startBuilding($route.current.params.id);
+
+                if(!exercise)
+                {
+                    $location.path('/builder/exercises');
+                }
+
+                return exercise;
+            }]
+        }
+    });
 
     // Declaración de la lista blanca de dominios para poder servir su contenido externo dentro de nuestro HTML
 

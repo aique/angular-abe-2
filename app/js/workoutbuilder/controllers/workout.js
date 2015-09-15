@@ -43,6 +43,11 @@ angular.module('workoutbuilder')
             }
         });
 
+        $scope.moveExerciseTo = function(exercise, toIndex)
+        {
+            WorkoutBuilderService.moveExerciseTo(exercise, toIndex);
+        };
+
         $scope.removeExercise = function(exercise)
         {
             WorkoutBuilderService.removeExercise(exercise);

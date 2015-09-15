@@ -4,14 +4,13 @@ angular.module('app').value("appEvents",
 });
 
 angular.module('workoutbuilder')
-    .factory("WorkoutBuilderService", ['WorkoutService', function (WorkoutService)
+    .factory("WorkoutBuilderService", ['WorkoutService', function(WorkoutService)
 {
         var service = {};
         var buildingWorkout;
         var newWorkout;
 
-        // Devuelve la rutina para ser manipulada mediante el nombre de la misma.
-        // Si existe esa será la rutina devuelta, en caso contrario se creará una nueva.
+        // Devuelve la rutina para ser manipulada mediante el nombre de la misma, si la rutina no existe se creará una nueva
 
         service.startBuilding = function(name)
         {
@@ -64,7 +63,53 @@ angular.module('workoutbuilder')
             newWorkout = false;
 
             return workout;
-        }
+        };
+
+        return service;
+    }]);
+
+angular.module('workoutbuilder')
+    .factory("ExerciseBuilderService", ['WorkoutService', function(WorkoutService)
+    {
+        var service = {};
+        var buildingExercise;
+        var newExercise;
+
+        // Devuelve el ejercicio para ser manipulado mediante el nombre del mismo, si el ejercicio no existe se creará uno nuevo
+
+        service.startBuilding = function(name)
+        {
+            if(name)
+            {
+                buildingExercise = WorkoutService.getExercise(name);
+                newExercise = false;
+            }
+            else
+            {
+                buildingExercise = new Exercise({});
+                newExercise = true;
+            }
+
+            return buildingExercise;
+        };
+
+        service.save = function()
+        {
+            var exercise;
+
+            if(newExercise)
+            {
+                exercise = WorkoutService.addExercise(buildingExercise);
+            }
+            else
+            {
+                exercise = WorkoutService.updateExercise(buildingExercise);
+            }
+
+            newExercise = false;
+
+            return exercise;
+        };
 
         return service;
     }]);

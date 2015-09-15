@@ -1,1 +1,72 @@
-﻿<h2>Exercise</h2>
+﻿<div id="exercise-container">
+
+    <div class="row">
+        <h2>{{exercise.title||'Nuevo ejercicio'}} {{formExercise.$dirty?'*':''}}
+            <span ng-show="canDeleteExercise()" class="pull-right glyphicon glyphicon-trash text-danger" title="Eliminar ejercicio" ng-confirm="deleteExercise()" ng-confirm-message="Estás seguro de que deseas eliminar este ejercicio?"></span>
+        </h2>
+    </div>
+
+    <form class="row" name="formExercise" novalidate>
+
+        <div class="form-group row" ng-class="{'has-error':formExercise.exerciseName.$invalid}">
+            <label for="exercise-name">Nombre:</label>
+            <input id="exercise-name" name="exerciseName" class="form-control" ng-model="exercise.name" placeholder="Introduce el nombre del ejercicio" ng-pattern="/^[A-Za-z0-9]{1,15}$/" required>
+            <div ng-messages="formExercise.exerciseName.$error" ng-if="isDirty(formExercise.exerciseName)">
+                <label ng-message="required" class="text-danger">El nombre del ejercicio es obligatorio</label>
+                <label ng-message="pattern" class="text-danger">Sólo se permiten 15 caracteres alfanuméricos</label>
+            </div>
+        </div>
+
+        <div class="form-group row" ng-class="{'has-error':formExercise.exerciseTitle.$invalid}">
+            <label for="exercise-title">Título:</label>
+            <input id="exercise-title" name="exerciseTitle" class="form-control" ng-model="exercise.title" placeholder="Introduce el título del ejercicio" ng-minlength="5" ng-maxlength="20" required>
+            <div ng-messages="formExercise.exerciseTitle.$error" ng-if="isDirty(formExercise.exerciseTitle)">
+                <label ng-message="required" class="text-danger">El título del ejercicio es obligatorio</label>
+                <label ng-message="minlength" class="text-danger">El título debe contener al menos 5 caracteres</label>
+                <label ng-message="maxlength" class="text-danger">El título no puede contener más de 20 caracteres</label>
+            </div>
+        </div>
+
+        <div class="form-group row" ng-class="{'has-error':formExercise.exerciseDescription.$invalid}">
+            <label for="exercise-description">Descripción:</label>
+            <textarea id="exercise-description" name="exerciseDescription" class="form-control" ng-model="exercise.description" placeholder="Introduce la descripción del ejercicio" required></textarea>
+            <div ng-messages="formExercise.exerciseDescription.$error" ng-if="isDirty(formExercise.exerciseDescription)">
+                <label ng-message="required" class="text-danger">La descripción del ejercicio es obligatoria</label>
+            </div>
+        </div>
+
+        <!--
+        <div class="form-group row">
+            <label for="exercise-image">Imagen:</label>
+            <input id="exercise-image" type="file" name="exerciseImage" class="form-control" ng-model="exercise.image">
+        </div>
+
+        <div class="form-group row">
+            <label for="exercise-sound">Sonido:</label>
+            <input id="exercise-sound" type="file" name="exerciseSound" class="form-control" ng-model="exercise.nameSound">
+        </div>
+
+        <div class="form-group row">
+            <label for="exercise-videos">Vídeos:</label>
+            <input id="exercise-videos" name="exerciseVideos" class="form-control" ng-model="exercise.videos">
+        </div>
+
+        <div class="form-group row">
+            <label for="exercise-procedure">Procedimiento:</label>
+            <textarea id="exercise-procedure" name="exerciseProcedure" class="form-control" ng-model="exercise.procedure" placeholder="Introduce los pasos de ejecución del ejercicio"></textarea>
+        </div>
+
+        -->
+
+        <div class="row">
+
+            <button class="btn pull-left submit-btn" ng-class="{'btn-default':formWorkout.$valid,'btn-warning':!formWorkout.$valid}" ng-click="save()"
+                    popover="{{formExercise.$invalid ? 'El formulario contiene errores.' : null}}" popover-trigger="mouseenter">Guardar</button>
+
+            <button class="btn btn-primary pull-left" ng-click="reset()">Reset</button>
+
+        </div>
+
+    </form>
+
+</div>
