@@ -11,7 +11,20 @@ angular.module('workoutbuilder')
 
         var init = function ()
         {
-            $scope.exercises = WorkoutService.getExercises();
+            // obtención de la información relativa a los ejercicios mediante el servicio $http
+
+            /*
+
+            WorkoutService.getExercises().then(function(data)
+            {
+                $scope.exercises = data;
+            });
+
+            */
+
+            // obtención de la información relativa a los ejercicios mediante el servicio $request
+
+            $scope.exercises = WorkoutService.Exercises.query();
         };
 
         init();
@@ -29,7 +42,20 @@ angular.module('workoutbuilder')
 
         var init = function()
         {
-            $scope.exercises = WorkoutService.getExercises();
+            // obtención de la información relativa a los ejercicios mediante el servicio $http
+
+            /*
+
+            WorkoutService.getExercises().then(function(data)
+            {
+                $scope.exercises = data;
+            });
+
+            */
+
+            // obtención de la información relativa a los ejercicios mediante el servicio $request
+
+            $scope.exercises = WorkoutService.Exercises.query();
         };
 
         init();

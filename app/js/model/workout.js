@@ -6,7 +6,15 @@
  */
 function Workout(args)
 {
-    this.exercises = [];
+    if(args.exercises)
+    {
+        this.exercises = args.exercises;
+    }
+    else
+    {
+        this.exercises = [];
+    }
+
     this.name = args.name; // se utilizará como identificador
     this.title = args.title;
     this.restBetweenExercise = args.restBetweenExercise;

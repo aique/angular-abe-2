@@ -10,7 +10,10 @@ angular.module('workoutbuilder')
 
         var init = function()
         {
-            $scope.workouts = WorkoutService.getWorkouts();
+            WorkoutService.getWorkouts().then(function(data)
+            {
+                $scope.workouts = data;
+            });
         };
 
         init();
@@ -69,11 +72,25 @@ angular.module('workoutbuilder')
 
             if(!$scope.formWorkout.$invalid) // se realiza una validación a nivel de formulario
             {
-                $scope.workout = WorkoutBuilderService.save(workout);
+                WorkoutBuilderService.save(workout).then(function(workout)
+                {
+                    $scope.workout = workout;
+                    $scope.formWorkout.$setPristine(); // se actualiza el estado del formulario a no manipulado, extendiendo este estado a todos los elementos que componen el formulario
+                    $scope.submitted = false;
+                })
+            }
+        };
 
-                $scope.formWorkout.$setPristine(); // se actualiza el estado del formulario a no manipulado, extendiendo este estado a todos los elementos que componen el formulario
-                
-                $scope.submitted = false;
+        $scope.canDeleteWorkout = function()
+        {
+            return !WorkoutBuilderService.newWorkout;
+        };
+
+        $scope.delete = function(workout)
+        {
+            if(!WorkoutBuilderService.newWorkout)
+            {
+                return WorkoutBuilderService.delete(workout);
             }
         };
 

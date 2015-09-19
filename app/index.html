@@ -56,12 +56,19 @@
             </div>
 
             <div class="col-sm-10 col-sm-offset-2">
+
                 <div id="page-content" ng-view></div>
+
+                <label ng-if="routeHasError" class="alert alert-danger">{{routeError}}</label>
+
             </div>
 
         </div>
 
     </div>
+
+    <!-- fichero de configuración -->
+    <script src="conf.js"></script>
 
     <!-- framework -->
     <script src="vendor/angular.min.js"></script>
@@ -69,6 +76,7 @@
     <script src="vendor/angular-sanitize.min.js"></script>
     <script src="vendor/angular-animate.min.js"></script>
     <script src="vendor/angular-messages.min.js"></script>
+    <script src="vendor/angular-resource.min.js"></script>
     <script src="vendor/angular-media-player.min.js"></script>
     <script src="vendor/angular-local-storage.min.js"></script>
     <!-- bootstrap ui -->

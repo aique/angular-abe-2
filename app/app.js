@@ -8,8 +8,8 @@
 
 // Se importa el módulo ngRoute para el enlazado de las vistas parciales
 
-angular.module('app', ['workoutrunner', 'workoutbuilder', 'ngRoute']).
-config(function($routeProvider, $sceDelegateProvider)
+angular.module('app', ['workoutrunner', 'workoutbuilder', 'ngRoute', 'ngResource']).
+config(function($routeProvider, $sceDelegateProvider, $httpProvider, WorkoutServiceProvider, ApiKeyAppenderInterceptorProvider)
 {
     // Declaración de las rutas del módulo workoutrunner
 
@@ -78,6 +78,7 @@ config(function($routeProvider, $sceDelegateProvider)
         leftNav: 'partials/workoutbuilder/left-nav-exercises.html', // menú lateral de la vista
         topNav: 'partials/workoutbuilder/top-nav.html', // menú superior de la vista
         controller: 'WorkoutDetailController', // controlador de la ruta
+        routeErrorMessage: 'No se puede cargar la rutina especificada!.', // mensaje de error en caso de que no exista la rutina solicitada
         resolve: // mecanismo para pasar datos o servicios al controlador
         {
             selectedWorkout: ['WorkoutBuilderService', '$route', '$location', function(WorkoutBuilderService, $route, $location)
@@ -85,6 +86,9 @@ config(function($routeProvider, $sceDelegateProvider)
                 // Si la rutina no se encuentra se redirige al listado de rutinas desde este punto
 
                 var workout = WorkoutBuilderService.startBuilding($route.current.params.id);
+
+                // A pesar de que startBuilding devuelve un objeto promise, no es necesario recurrir a la función
+                // then ya que $routeProvider espera a que se ejecute el método resolve y asigna la respuesta a la variable
 
                 if(!workout)
                 {
@@ -115,6 +119,7 @@ config(function($routeProvider, $sceDelegateProvider)
         templateUrl: 'partials/workoutbuilder/exercise.html',
         topNav: 'partials/workoutbuilder/top-nav.html', // menú superior de la vista
         controller: 'ExerciseDetailController',
+        routeErrorMessage: 'No se puede cargar el ejercicio especificado!.', // mensaje de error en caso de que no exista la rutina solicitada
         resolve:
         {
             selectedExercise: ['ExerciseBuilderService', '$route', '$location', function (ExerciseBuilderService, $route, $location)
@@ -140,6 +145,18 @@ config(function($routeProvider, $sceDelegateProvider)
         'self',
         'http://*.youtube.com/**'
     ]);
+
+    // Inicialización de providers
+
+    // WorkoutServiceProvider.configure(Config.dbname, Config.apiKey);
+
+    WorkoutServiceProvider.configure(Config.dbname);
+
+    ApiKeyAppenderInterceptorProvider.configure(Config.apiKey);
+
+    // Definición de los interceptores HTTP
+
+    $httpProvider.interceptors.push('ApiKeyAppenderInterceptor');
 });
 
 angular.module('workoutrunner', ['ngSanitize', 'ngAnimate', 'mediaPlayer', 'ui.bootstrap', 'LocalStorageModule']);

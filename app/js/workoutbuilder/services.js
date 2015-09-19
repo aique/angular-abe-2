@@ -4,28 +4,35 @@ angular.module('app').value("appEvents",
 });
 
 angular.module('workoutbuilder')
-    .factory("WorkoutBuilderService", ['WorkoutService', function(WorkoutService)
+    .factory("WorkoutBuilderService", ['WorkoutService', '$q', function(WorkoutService, $q)
 {
         var service = {};
+
         var buildingWorkout;
-        var newWorkout;
 
         // Devuelve la rutina para ser manipulada mediante el nombre de la misma, si la rutina no existe se creará una nueva
 
         service.startBuilding = function(name)
         {
+            var defer = $q.defer();
+
             if(name)
             {
-                buildingWorkout = WorkoutService.getWorkout(name);
-                newWorkout = false;
+                WorkoutService.getWorkout(name).then(function(workout)
+                {
+                    buildingWorkout = workout;
+                    service.newWorkout = false;
+                    defer.resolve(buildingWorkout);
+                });
             }
             else
             {
                 buildingWorkout = new Workout({});
-                newWorkout = true;
+                defer.resolve(buildingWorkout);
+                service.newWorkout = true;
             }
 
-            return buildingWorkout;
+            return defer.promise;
         };
 
         service.removeExercise = function(exercise)
@@ -49,20 +56,23 @@ angular.module('workoutbuilder')
 
         service.save = function()
         {
-            var workout;
+            var promise;
 
-            if(newWorkout)
+            if(service.newWorkout)
             {
-                workout = WorkoutService.addWorkout(buildingWorkout);
+                promise = WorkoutService.addWorkout(buildingWorkout);
             }
             else
             {
-                workout = WorkoutService.updateWorkout(buildingWorkout);
+                promise = WorkoutService.updateWorkout(buildingWorkout);
             }
 
-            newWorkout = false;
+            promise.then(function(workout)
+            {
+                service.newWorkout = false; // una vez que se guarda la rutina la variable se establece a false
+            });
 
-            return workout;
+            return promise;
         };
 
         return service;
@@ -81,8 +91,10 @@ angular.module('workoutbuilder')
         {
             if(name)
             {
-                buildingExercise = WorkoutService.getExercise(name);
-                newExercise = false;
+                buildingExercise = WorkoutService.Exercises.get({id: name}, function(data)
+                {
+                    newExercise = false;
+                });
             }
             else
             {
@@ -95,21 +107,34 @@ angular.module('workoutbuilder')
 
         service.save = function()
         {
-            var exercise;
+            if(!buildingExercise._id)
+            {
+                buildingExercise._id = buildingExercise.name;
+            }
+
+            var promise;
 
             if(newExercise)
             {
-                exercise = WorkoutService.addExercise(buildingExercise);
+                promise = WorkoutService.Exercises.save({}, buildingExercise).$promise;
             }
             else
             {
-                exercise = WorkoutService.updateExercise(buildingExercise);
+                promise = buildingExercise.$update({id: buildingExercise.name});
             }
 
-            newExercise = false;
+            return promise.then(function(data)
+            {
+                newExercise = false;
 
-            return exercise;
+                return buildingExercise;
+            });
         };
+
+        service.delete = function()
+        {
+            return buildingExercise.$delete({id: buildingExercise.name});
+        }
 
         return service;
     }]);
