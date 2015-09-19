@@ -15,13 +15,30 @@ config(function($routeProvider, $sceDelegateProvider, $httpProvider, WorkoutServ
 
     $routeProvider.when('/start',
     {
-        templateUrl: 'partials/workoutrunner/start.html'
+        templateUrl: 'partials/workoutrunner/start.html',
+        controller: 'WorkoutStartController'
     });
 
-    $routeProvider.when('/workout',
+    $routeProvider.when('/workout/:id',
     {
         templateUrl: 'partials/workoutrunner/workout.html',
-        controller: 'WorkoutController'
+        controller: 'WorkoutController',
+        resolve: // mecanismo para pasar datos o servicios al controlador
+        {
+            selectedWorkout: ['WorkoutService', '$route', '$location', function(WorkoutService, $route, $location)
+            {
+                // Si la rutina no se encuentra se redirige a la pantalla de inicio de ejecución de rutinas
+
+                var workout = WorkoutService.getWorkout($route.current.params.id);
+
+                if(!workout)
+                {
+                    $location.path('/start');
+                }
+
+                return workout;
+            }]
+        }
     });
 
     $routeProvider.when('/finish',

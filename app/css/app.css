@@ -148,6 +148,16 @@ input[type="checkbox"].input-validation-error
     padding-top:15px;
 }
 
+#start
+{
+    margin-top: 40px;
+}
+
+#start .workout
+{
+    margin: 10px auto 0 auto;
+}
+
 #video-panel .panel-body
 {
     max-height:650px;
