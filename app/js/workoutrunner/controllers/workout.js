@@ -45,6 +45,10 @@ angular.module('workoutrunner').controller('WorkoutController', ["$scope", "$int
 
             workoutHistoryTracker.startTracking();
 
+            // crea el array de imágenes para el carrusel
+
+            fillImages();
+
             // inicializa la rutina sacando el primer ejercicio de la colección y pasándolo como parámetro
 
             startExercise($scope.workoutPlan.exercises[++$scope.currentExerciseIndex]);
@@ -98,6 +102,8 @@ angular.module('workoutrunner').controller('WorkoutController', ["$scope", "$int
 
                 if(next)
                 {
+                    $scope.carousel.next();
+
                     startExercise(next);
                 }
                 else
@@ -169,6 +175,32 @@ angular.module('workoutrunner').controller('WorkoutController', ["$scope", "$int
             {
                 $scope.pauseResumeToggle();
             }
+        };
+
+        $scope.imageUpdated = function(imageIndex)
+        {
+            console.log($scope.exerciseImages[imageIndex]);
+        };
+
+        /**
+         * Obtiene todas las imágenes de la rutina en un array para
+         * que el plugin del carrusel pueda funcionar adecuadamente.
+         */
+        var fillImages = function()
+        {
+            $scope.exerciseImages = [];
+
+            angular.forEach($scope.workoutPlan.exercises, function(exercise, index)
+            {
+                $scope.exerciseImages.push(exercise.details.image);
+
+                if(index < $scope.workoutPlan.exercises.length - 1)
+                {
+                    // se inserta una imágen del ejercicio de descanso tras cada ejercicio
+
+                    $scope.exerciseImages.push('img/rest.png');
+                }
+            });
         };
 
         var init = function()

@@ -416,3 +416,13 @@ form .submit-btn
 {
     color: #333;
 }
+
+.busy-indicator
+{
+    display: block;
+}
+
+#historical-menu-item:hover
+{
+    cursor: pointer;
+}

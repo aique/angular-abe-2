@@ -5,7 +5,7 @@ angular.module('app')
         {
             var dailog = $modal.open(
             {
-                templateUrl: 'partials/workoutrunner/workoutrunner-history.html',
+                templateUrl: 'partials/workoutrunner/workout-history.html',
                 controller: 'WorkoutHistoryController',
                 size: 'lg'
             });
@@ -17,6 +17,15 @@ angular.module('app')
         {
             $scope.currentRoute = current;
             $scope.routeHasError = false;
+
+            if(current.originalPath.indexOf('builder') > 0)
+            {
+                $scope.builder = true;
+            }
+            else
+            {
+                $scope.builder = false;
+            }
         });
 
         $scope.$on('$routeChangeError', function(e, current, previous, error)

@@ -12,6 +12,8 @@
     "angular-messages": "v1.4.3",
     "angular-resource": "v1.4.3",
     "angular-media-player": "v0.5.8",
-    "angular-local-storage": "v0.1.4"
+    "angular-local-storage": "v0.1.4",
+    "jquery": "v2.1.4",
+    "OwlCarousel": "v1.3.2"
   }
 }

@@ -14,6 +14,8 @@
     <link href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700" rel="stylesheet" type="text/css">
     <!-- animate css -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.0/animate.min.css" rel="stylesheet" type="text/css">
+    <!-- estilos de la librerías -->
+    <link rel="stylesheet" href="vendor/owl-carousel/owl.carousel.css" />
     <!-- estilos de la aplicación -->
     <link rel="stylesheet" href="css/app.css" />
 
@@ -31,11 +33,11 @@
 
             </div>
 
-            <!--
             <ul class="nav navbar-nav navbar-right">
-                <li><a ng-click="showWorkoutHistory()" title="Historial de rutinas">Historial</a></li>
+                <li><a href="#/start" title="Iniciar los ejercicios">Empezar rutinas</a></li>
+                <li><a id="historical-menu-item" ng-click="showWorkoutHistory()" title="Historial de rutinas">Historial</a></li>
+                <li><a href="#/builder" title="Configurador de rutinas">Configurador</a></li>
             </ul>
-            -->
 
         </div>
 
@@ -55,7 +57,7 @@
                 <div id="left-nav" ng-include="currentRoute.leftNav"></div>
             </div>
 
-            <div class="col-sm-10 col-sm-offset-2">
+            <div ng-class="{'col-sm-10 col-sm-offset-2': builder, 'col-sm-12': !builder}">
 
                 <div id="page-content" ng-view></div>
 
@@ -67,10 +69,17 @@
 
     </div>
 
+    <!-- librerías -->
+
+    <script src="vendor/jquery.min.js"></script>
+    <script src="vendor/owl-carousel/owl.carousel.min.js"></script>
+
     <!-- fichero de configuración -->
+
     <script src="conf.js"></script>
 
     <!-- framework -->
+
     <script src="vendor/angular.min.js"></script>
     <script src="vendor/angular-route.min.js"></script>
     <script src="vendor/angular-sanitize.min.js"></script>
@@ -79,14 +88,22 @@
     <script src="vendor/angular-resource.min.js"></script>
     <script src="vendor/angular-media-player.min.js"></script>
     <script src="vendor/angular-local-storage.min.js"></script>
+
     <!-- bootstrap ui -->
+
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
+
     <!-- fichero base -->
+
     <script src="app.js"></script>
+
     <!-- modelo -->
+
     <script src="js/model/exercise.js"></script>
     <script src="js/model/workout.js"></script>
+
     <!-- controladores -->
+
     <script src="js/controllers/root.js"></script>
     <script src="js/workoutrunner/controllers/workout.js"></script>
     <script src="js/workoutrunner/controllers/workoutAudio.js"></script>
@@ -94,13 +111,19 @@
     <script src="js/workoutrunner/controllers/workoutHistory.js"></script>
     <script src="js/workoutbuilder/controllers/workout.js"></script>
     <script src="js/workoutbuilder/controllers/exercise.js"></script>
+
     <!-- filtros -->
+
     <script src="js/workoutrunner/filters.js"></script>
+
     <!-- servicios -->
+
     <script src="js/services.js"></script>
     <script src="js/workoutrunner/services.js"></script>
     <script src="js/workoutbuilder/services.js"></script>
+
     <!-- directivas -->
+
     <script src="js/directives.js"></script>
     <script src="js/workoutbuilder/directives.js"></script>
 
