@@ -120,6 +120,7 @@ config(function($routeProvider, $sceDelegateProvider, $httpProvider, WorkoutServ
     $routeProvider.when('/builder/exercises/new',
     {
         templateUrl: 'partials/workoutbuilder/exercise.html',
+        leftNav: 'partials/workoutbuilder/left-nav-main.html', // menú lateral de la vista
         topNav: 'partials/workoutbuilder/top-nav.html', // menú superior de la vista
         controller: 'ExerciseDetailController',
         resolve:
@@ -134,6 +135,7 @@ config(function($routeProvider, $sceDelegateProvider, $httpProvider, WorkoutServ
     $routeProvider.when('/builder/exercises/:id',
     {
         templateUrl: 'partials/workoutbuilder/exercise.html',
+        leftNav: 'partials/workoutbuilder/left-nav-main.html', // menú lateral de la vista
         topNav: 'partials/workoutbuilder/top-nav.html', // menú superior de la vista
         controller: 'ExerciseDetailController',
         routeErrorMessage: 'No se puede cargar el ejercicio especificado!.', // mensaje de error en caso de que no exista la rutina solicitada

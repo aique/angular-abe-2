@@ -406,3 +406,13 @@ form .submit-btn
 {
     margin-top: 5px;
 }
+
+.remove-icon
+{
+    cursor: pointer;
+}
+
+.btn-warning .popover
+{
+    color: #333;
+}

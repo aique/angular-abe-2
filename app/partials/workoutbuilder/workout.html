@@ -2,7 +2,7 @@
 
     <div class="row">
         <h2 class="col-sm-8 col-sm-offset-1">{{workout.title||'Nueva rutina'}} {{formWorkout.$dirty?'*':''}}
-            <span ng-show="canDeleteWorkout()" class="pull-right glyphicon glyphicon-trash text-danger" title="Eliminar rutina" ng-confirm="deleteWorkout()" ng-confirm-message="Está seguro de que quiere eliminar esta rutina?"></span>
+            <span ng-show="canDeleteWorkout()" class="pull-right glyphicon glyphicon-trash text-danger remove-icon" title="Eliminar rutina" ng-confirm="deleteWorkout()" ng-confirm-message="Está seguro de que quiere eliminar esta rutina?"></span>
         </h2>
     </div>
 
@@ -28,11 +28,28 @@
 
         <div id="workout-data" class="col-sm-3">
 
-            <div class="form-group row" ng-class="{'has-error':formWorkout.workoutName.$invalid}">
+            <div class="form-group row" ng-class="{'has-error':formWorkout.workoutName.$invalid}" busy-indicator="">
+
                 <label for="workout-name">Nombre:</label>
-                <input type="text" name="workoutName" class="form-control" id="workout-name" placeholder="Introduce el nombre de la rutina" ng-model="workout.name" ng-pattern="/^[A-Za-z0-9]{1,15}$/" required>
+
+                <!-- la validación se lleva a cabo cuando el elemento pierde el foco (blur) para optimizar el número de llamadas remotas -->
+
+                <input type="text"
+                       name="workoutName"
+                       remote-validator="uniqueName"
+                       remote-validator-function="uniqueUserName(value)"
+                       ng-model-options="{updateOn: 'blur'}"
+                       class="form-control"
+                       id="workout-name"
+                       placeholder="Introduce el nombre de la rutina"
+                       ng-model="workout.name"
+                       ng-pattern="/^[A-Za-z0-9]{1,15}$/"
+                       required>
+
+                <label ng-show="hasError(formWorkout.workoutName, formWorkout.workoutName.$error.uniqueName)" ng-class="{'text-danger': formWorkout.workoutName.$error.uniqueName}">Ya existe una rutina con este nombre</label>
                 <label ng-show="hasError(formWorkout.workoutName, formWorkout.workoutName.$error.required)" class="text-danger">El nombre de la rutina es obligatorio</label>
                 <label ng-show="hasError(formWorkout.workoutName, formWorkout.workoutName.$error.pattern)" class="text-danger">Sólo se permiten 15 caracteres alfanuméricos</label>
+
             </div>
 
             <div class="form-group row" ng-class="{'has-error':formWorkout.title.$invalid}">
@@ -84,8 +101,17 @@
 
             <div class="row">
 
+                <!--
+
                 <button class="btn pull-left submit-btn" ng-class="{'btn-default':formWorkout.$valid,'btn-warning':!formWorkout.$valid}" ng-click="save()"
                         popover="{{formWorkout.$invalid ? 'El formulario contiene errores' : null}}" popover-trigger="mouseenter">Guardar</button>
+
+                -->
+
+                <ajax-button class="btn pull-left submit-btn"
+                             ng-class="{'btn-default':formWorkout.$valid,'btn-warning':!formWorkout.$valid}"
+                             on-click="save()"
+                             submitting="{{submitted}}"><span popover="{{formWorkout.$invalid ? 'El formulario contiene errores' : null}}" popover-trigger="mouseenter">Guardar</span></ajax-button>
 
                 <button class="btn btn-primary pull-left" ng-click="reset()">Reset</button>
 
@@ -103,7 +129,7 @@
 
         <div class="title">
             {{exercise.details.title}}
-            <div class="pull-right" ng-click="removeExercise(exercise)"><span class="glyphicon glyphicon-trash"></span></div>
+            <div class="pull-right" ng-click="removeExercise(exercise)"><span class="glyphicon glyphicon-trash remove-icon"></span></div>
         </div>
 
         <div class="index"><span>{{$index+1}}</span></div>

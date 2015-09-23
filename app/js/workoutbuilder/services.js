@@ -75,6 +75,11 @@ angular.module('workoutbuilder')
             return promise;
         };
 
+        service.deleteWorkout = function()
+        {
+            return WorkoutService.deleteWorkout(buildingWorkout);
+        };
+
         return service;
     }]);
 
@@ -82,8 +87,8 @@ angular.module('workoutbuilder')
     .factory("ExerciseBuilderService", ['WorkoutService', function(WorkoutService)
     {
         var service = {};
+
         var buildingExercise;
-        var newExercise;
 
         // Devuelve el ejercicio para ser manipulado mediante el nombre del mismo, si el ejercicio no existe se creará uno nuevo
 
@@ -93,13 +98,13 @@ angular.module('workoutbuilder')
             {
                 buildingExercise = WorkoutService.Exercises.get({id: name}, function(data)
                 {
-                    newExercise = false;
+                    service.newExercise = false;
                 });
             }
             else
             {
                 buildingExercise = new Exercise({});
-                newExercise = true;
+                service.newExercise = true;
             }
 
             return buildingExercise;
@@ -114,9 +119,11 @@ angular.module('workoutbuilder')
 
             var promise;
 
-            if(newExercise)
+            if(service.newExercise)
             {
-                promise = WorkoutService.Exercises.save({}, buildingExercise).$promise;
+                buildingExercise = WorkoutService.Exercises.save({}, buildingExercise);
+
+                promise = buildingExercise.$promise;
             }
             else
             {
@@ -125,13 +132,13 @@ angular.module('workoutbuilder')
 
             return promise.then(function(data)
             {
-                newExercise = false;
+                service.newExercise = false;
 
                 return buildingExercise;
             });
         };
 
-        service.delete = function()
+        service.deleteExercise = function()
         {
             return buildingExercise.$delete({id: buildingExercise.name});
         }

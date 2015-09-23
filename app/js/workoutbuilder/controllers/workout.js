@@ -22,7 +22,8 @@ angular.module('workoutbuilder')
 // El parámetro selectedWorkout es pasado a través de la propiedad resolve dentro de la configuración de la ruta en app.js
 
 angular.module('workoutbuilder')
-    .controller('WorkoutDetailController', ['$scope', '$routeParams', 'WorkoutBuilderService', 'selectedWorkout', function($scope, $routeParams, WorkoutBuilderService, selectedWorkout)
+    .controller('WorkoutDetailController', ['$scope', '$routeParams', '$q', '$location', 'WorkoutService', 'WorkoutBuilderService', 'selectedWorkout',
+        function($scope, $routeParams, $q, $location, WorkoutService, WorkoutBuilderService, selectedWorkout)
     {
         // este método se ejecuta cuando el controlador del modelo está disponible, al entrar en la pantalla para comprobar que la rutina tiene al menos un ejercicio
 
@@ -56,6 +57,35 @@ angular.module('workoutbuilder')
             WorkoutBuilderService.removeExercise(exercise);
         };
 
+        /**
+         * Función utilizada para realizar la comprobación de que el nombre de la rutina
+         * es único dentro de la base de datos, ya que será utilizado como identificador.
+         *
+         * Es utilizada por la directiva propia definida para llevar a cabo validaciones
+         * en el formulario mediante consultas remotas a la base de datos.
+         *
+         * Devuelve un objeto promise que el validador deberá de resolver.
+         */
+        $scope.uniqueUserName = function(value)
+        {
+            // si el nombre es vacío o es igual que el pasado como parámetro (en caso de edición) pasará la validación
+
+            if(!value || value == $routeParams.id)
+            {
+                return $q.when(true); // fuerza a la devolución de un objeto de tipo promise con la respuesta pasada como parámetro
+            }
+
+            return WorkoutService.getWorkout(value.toLowerCase()).then(
+                function(data)
+                {
+                    return $q.reject(); // respuesta en caso de que la llamada encuentre una rutina en base de datos
+                },
+                function(error)
+                {
+                    return true; // respuesta en caso de que la llamada no encuentre una rutina en base de datos
+                });
+        };
+
         $scope.isDirty = function(modelController)
         {
             return modelController.$dirty || $scope.submitted;
@@ -66,13 +96,18 @@ angular.module('workoutbuilder')
             return $scope.isDirty(modelController) && error;
         };
 
-        $scope.save = function(workout)
+        $scope.save = function()
         {
+            if($scope.formWorkout.$invalid)
+            {
+                return;
+            }
+
             $scope.submitted = true; // a partir de la versión 1.3 el controlador del formulario ya posee una variable $submitted
 
             if(!$scope.formWorkout.$invalid) // se realiza una validación a nivel de formulario
             {
-                WorkoutBuilderService.save(workout).then(function(workout)
+                WorkoutBuilderService.save().then(function(workout)
                 {
                     $scope.workout = workout;
                     $scope.formWorkout.$setPristine(); // se actualiza el estado del formulario a no manipulado, extendiendo este estado a todos los elementos que componen el formulario
@@ -86,11 +121,17 @@ angular.module('workoutbuilder')
             return !WorkoutBuilderService.newWorkout;
         };
 
-        $scope.delete = function(workout)
+        $scope.deleteWorkout = function()
         {
             if(!WorkoutBuilderService.newWorkout)
             {
-                return WorkoutBuilderService.delete(workout);
+                WorkoutBuilderService.deleteWorkout().then(function(response)
+                {
+                    if(response)
+                    {
+                        $location.path('/builder/workouts');
+                    };
+                });
             }
         };
 
@@ -104,9 +145,7 @@ angular.module('workoutbuilder')
         var init = function()
         {
             $scope.workout = selectedWorkout;
-
             $scope.durations = [{title: 10, value: 10}, {title: 20, value: 20}, {title: 30, value: 30}]; // array de posibles duraciones para cada ejercicio
-
             $scope.selectedExercise = {}; // ejercicio seleccionado dentro de la lista de ejercicios de cada rutina
         };
 

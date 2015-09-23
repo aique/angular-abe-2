@@ -1,20 +1,35 @@
-﻿<div id="exercise-container">
+﻿<div id="exercise-container" class="col-sm-6">
 
     <div class="row">
         <h2>{{exercise.title||'Nuevo ejercicio'}} {{formExercise.$dirty?'*':''}}
-            <span ng-show="canDeleteExercise()" class="pull-right glyphicon glyphicon-trash text-danger" title="Eliminar ejercicio" ng-confirm="deleteExercise()" ng-confirm-message="Estás seguro de que deseas eliminar este ejercicio?"></span>
+            <span ng-show="canDeleteExercise()" class="pull-right glyphicon glyphicon-trash text-danger remove-icon" title="Eliminar ejercicio" ng-confirm="deleteExercise()" ng-confirm-message="Estás seguro de que deseas eliminar este ejercicio?"></span>
         </h2>
     </div>
 
     <form class="row" name="formExercise" novalidate>
 
-        <div class="form-group row" ng-class="{'has-error':formExercise.exerciseName.$invalid}">
+        <div class="form-group row" ng-class="{'has-error':formExercise.exerciseName.$invalid}" busy-indicator="">
+
             <label for="exercise-name">Nombre:</label>
-            <input id="exercise-name" name="exerciseName" class="form-control" ng-model="exercise.name" placeholder="Introduce el nombre del ejercicio" ng-pattern="/^[A-Za-z0-9]{1,15}$/" required>
+
+            <input id="exercise-name"
+                   name="exerciseName"
+                   remote-validator="uniqueName"
+                   remote-validator-function="uniqueUserName(value)"
+                   ng-model-options="{updateOn: 'blur'}"
+                   class="form-control"
+                   ng-model="exercise.name"
+                   placeholder="Introduce el nombre del ejercicio"
+                   ng-pattern="/^[A-Za-z0-9]{1,15}$/"
+                   required>
+
+            <label ng-show="hasError(formExercise.exerciseName, formExercise.exerciseName.$error.uniqueName)" ng-class="{'text-danger': formExercise.exerciseName.$error.uniqueName}">Ya existe un ejercicio con este nombre</label>
+
             <div ng-messages="formExercise.exerciseName.$error" ng-if="isDirty(formExercise.exerciseName)">
                 <label ng-message="required" class="text-danger">El nombre del ejercicio es obligatorio</label>
                 <label ng-message="pattern" class="text-danger">Sólo se permiten 15 caracteres alfanuméricos</label>
             </div>
+
         </div>
 
         <div class="form-group row" ng-class="{'has-error':formExercise.exerciseTitle.$invalid}">
@@ -60,8 +75,17 @@
 
         <div class="row">
 
-            <button class="btn pull-left submit-btn" ng-class="{'btn-default':formWorkout.$valid,'btn-warning':!formWorkout.$valid}" ng-click="save()"
+            <!--
+
+            <button class="btn pull-left submit-btn" ng-class="{'btn-default':formExercise.$valid,'btn-warning':!formExercise.$valid}" ng-click="save()"
                     popover="{{formExercise.$invalid ? 'El formulario contiene errores.' : null}}" popover-trigger="mouseenter">Guardar</button>
+
+            -->
+
+            <ajax-button class="btn pull-left submit-btn"
+                         ng-class="{'btn-default':formExercise.$valid,'btn-warning':!formExercise.$valid}"
+                         on-click="save()"
+                         submitting="{{submitted}}"><span popover="{{formExercise.$invalid ? 'El formulario contiene errores' : null}}"popover-trigger="mouseenter">Guardar</span></ajax-button>
 
             <button class="btn btn-primary pull-left" ng-click="reset()">Reset</button>
 
