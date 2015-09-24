@@ -6,15 +6,13 @@
 
     <div class="panel-body">
 
-        <div class="row">
 
-            <div class="col-sm-12">
 
-                <div ng-repeat="video in currentExercise.details.related.videos" ng-click="playVideo(video)" class="row video-image">
+                <div ng-repeat="video in currentExercise.details.related.videos" class="video-image">
 
-                    <div class="col-sm-12">
+                    <div class="video-container">
 
-                        <div id="play-video-overlay">
+                        <div id="play-video-overlay" ng-click="playVideo(video)">
                             <span class="glyphicon glyphicon-play-circle video absolute-center"></span>
                         </div>
 
@@ -23,10 +21,6 @@
                     </div>
 
                 </div>
-
-            </div>
-
-        </div>
 
     </div>
 
