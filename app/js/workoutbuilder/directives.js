@@ -3,7 +3,7 @@ angular.module('workoutbuilder')
     {
         return {
             restrict: 'E', // naturaleza de la directiva, en este caso será una etiqueta HTML
-            templateUrl: '/partials/workoutbuilder/workout-title.html' // plantilla que usará la directiva
+            templateUrl: 'partials/workoutbuilder/workout-title.html' // plantilla que usará la directiva
         }
     });
 
